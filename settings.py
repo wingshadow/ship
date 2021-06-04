@@ -19,7 +19,7 @@ class Settings():
         # 子弹速度
         self.bullet_speed_factor = 3
         # 子弹宽度
-        self.bullet_width = 300
+        self.bullet_width = 3
         # 子弹高度
         self.bullet_height = 15
         self.bullet_color = 60, 60, 60
@@ -39,6 +39,10 @@ class Settings():
         self.speedup_scale = 1.1
         # 外星人点数的提高速度
         self.score_scale = 1.5
+
+        self.fire_sound = "sound/fire.wav"
+        self.bomb_sound = "sound/bomb.wav"
+        self.ship_bomb_sound = "sound/ship_bomb.wav"
 
         self.high_score_file_name = os.getcwd() + "\highScore.txt"
 

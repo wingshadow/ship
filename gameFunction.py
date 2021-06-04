@@ -23,7 +23,8 @@ def check_keydown_events(event, ai_settings, screen, stats, ship, bullets):
 
     # 开火
     if event.key == pygame.K_SPACE:
-        fire(ai_settings, screen, ship, bullets)
+        if stats.game_active == True:
+            fire(ai_settings, screen, ship, bullets)
 
 
 def check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets):
@@ -57,7 +58,7 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens,
         ai_settings.initialize_dynamic_settings()
         # 隐藏光标
         pygame.mouse.set_visible(False)
-
+        # 初始化状态参数
         stats.reset_stats()
         stats.game_active = True
 
@@ -112,6 +113,7 @@ def update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets):
 def fire(ai_settings, screen, ship, bullets):
     """发射子弹"""
     if len(bullets) < ai_settings.bullets_allowed:
+        play_sound(ai_settings.fire_sound)
         # 创建一颗子弹， 并将其加入到编组bullets中
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
@@ -159,6 +161,7 @@ def create_fleet(ai_settings, screen, ship, aliens):
 def ship_hit(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """飞船击中处理"""
     if stats.ships_left > 0:
+        play_sound(ai_settings.ship_bomb_sound)
         # 将ships_left减1
         stats.ships_left -= 1
         sb.prep_ships()
@@ -223,6 +226,8 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, ship, aliens, 
     # 删除发生碰撞的子弹和外星人
     collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
     if collisions:
+        # 飞碟击中播放音效
+        play_sound(ai_settings.bomb_sound)
         # 判断击中飞碟个数
         for aliens in collisions.values():
             # 更新得分
@@ -258,3 +263,9 @@ def write_high_score(ai_settings, stats):
     f.write(high_score_str)
     f.flush()
     f.close()
+
+
+def play_sound(sound):
+    pygame.mixer.init()
+    pygame.mixer.music.load(sound)
+    pygame.mixer.music.play()
