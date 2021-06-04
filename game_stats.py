@@ -22,6 +22,8 @@ class GameStats():
     def read_high_score(self, path):
         f = open(path, "r")
         high_score_str = f.read()
+        if high_score_str in ['\n', '\r\n']:
+            high_score_str = "0"
         f.flush()
         f.close()
         return int(high_score_str)
