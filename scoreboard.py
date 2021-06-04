@@ -16,8 +16,6 @@ class Scoreboard():
         self.text_color = (30, 30, 30)
         self.font = pygame.font.SysFont(None, 48)
 
-
-
         # 准备初始得分图像
         self.prep_score()
         self.prep_high_score()
@@ -28,7 +26,7 @@ class Scoreboard():
         """将得分转换为一幅渲染的图像"""
         rounded_score = int(round(self.stats.score, -1))
         # 使用千分符
-        score_str = "{:,}".format(self.stats.score)
+        score_str = "Score:{:,}".format(self.stats.score)
         self.score_image = self.font.render(score_str, True, self.text_color,
                                             self.ai_settings.bg_color)
         # 将得分放在屏幕右上角
@@ -39,23 +37,23 @@ class Scoreboard():
     def prep_high_score(self):
         """将最高得分转换为渲染的图像"""
         high_score = int(round(self.stats.high_score, -1))
-        high_score_str = "{:,}".format(high_score)
+        high_score_str = "Top Score:{:,}".format(high_score)
         self.high_score_image = self.font.render(high_score_str, True,
                                                  self.text_color, self.ai_settings.bg_color)
         # 将最高得分放在屏幕顶部中央
         self.high_score_rect = self.high_score_image.get_rect()
-        self.high_score_rect.x = self.screen_rect.centerx
+        self.high_score_rect.x = self.screen_rect.centerx - 100
         self.high_score_rect.top = self.score_rect.top
-
 
     def prep_level(self):
         """将等级转换为渲染的图像"""
-        self.level_image = self.font.render(str(self.stats.level), True,
-                                              self.text_color, self.ai_settings.bg_color)
+        level_str = "Level:" + str(self.stats.level)
+        self.level_image = self.font.render(level_str, True,
+                                            self.text_color, self.ai_settings.bg_color)
         # 将等级放在得分下方
         self.level_rect = self.level_image.get_rect()
-        self.level_rect.centerx = self.score_rect.right
-        self.level_rect.top = self.score_rect.bottom + 10
+        self.level_rect.centerx = self.score_rect.right - 300
+        self.level_rect.top = self.score_rect.top
 
     def prep_ships(self):
         """显示还余下多少艘飞船"""

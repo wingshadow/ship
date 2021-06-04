@@ -12,7 +12,7 @@ def check_keydown_events(event, ai_settings, screen, stats, ship, bullets):
     """键盘事件处理"""
     # 按键Q退出游戏
     if event.key == pygame.K_q:
-        write_high_score(stats)
+        write_high_score(ai_settings, stats)
         sys.exit()
 
     if event.key == pygame.K_RIGHT:
@@ -30,7 +30,7 @@ def check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bull
     """事件检查"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            write_high_score(ai_settings,stats)
+            write_high_score(ai_settings, stats)
             sys.exit()
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -252,7 +252,7 @@ def check_high_score(stats, sb):
         sb.prep_high_score()
 
 
-def write_high_score(ai_settings,stats):
+def write_high_score(ai_settings, stats):
     f = open(ai_settings.high_score_file_name, "w")
     high_score_str = "{:,}".format(stats.high_score)
     f.write(high_score_str)
