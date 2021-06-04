@@ -1,12 +1,10 @@
 # _*_ coding:utf-8 _*_
 
 import pygame
-import sys
 # 系统配置类
 from button import Button
 from settings import Settings
 from ship import Ship
-from alien import Alien
 import gameFunction as gf
 from pygame.sprite import Group
 from game_stats import GameStats
