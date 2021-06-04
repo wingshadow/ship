@@ -259,7 +259,7 @@ def check_high_score(stats, sb):
 
 def write_high_score(ai_settings, stats):
     f = open(ai_settings.high_score_file_name, "w")
-    high_score_str = "{:,}".format(stats.high_score)
+    high_score_str = str(stats.high_score)
     f.write(high_score_str)
     f.flush()
     f.close()

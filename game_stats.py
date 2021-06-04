@@ -22,7 +22,6 @@ class GameStats():
     def read_high_score(self, path):
         f = open(path, "r")
         high_score_str = f.read()
-        high_score_str = high_score_str.replace(",", "")
         f.flush()
         f.close()
         return int(high_score_str)
